@@ -77,7 +77,8 @@ App = {
   
       // Render Tasks
       await App.renderDocuments()
-  
+      // const s= await App.admission.getStudentDocuments('2018140003',{ from: App.account})
+      // console.log(s.docHash)
       // Update loading state
       App.setLoading(false)
     },
@@ -96,15 +97,6 @@ App = {
         const docHash = document[2]
         const docType = document[3]
   
-        // Create the html for the task
-        // const $newTaskTemplate = $taskTemplate.clone()
-        // // $newTaskTemplate.find('.content').html(docId + ' ' + studentUid + ' '+ docHash + ' ' + docType)
-        // $newTaskTemplate.find('.content').html(docHash)
-        // console.log(docHash)
-  
-        // Show the task
-        // $newTaskTemplate.show()
-
         $('#content').html(docHash)
   
       }
