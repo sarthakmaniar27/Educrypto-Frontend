@@ -56,11 +56,62 @@
           <div id="loader" class="text-center">
             <p class="text-center">Loading...</p>
           </div>
-          <div id="content">
-            <!-- <form onSubmit="App.createTask(); return false;">
-              <input id="newTask" type="text" class="form-control" placeholder="Add task..." required>
-              <input type="submit" hidden="">
-            </form> -->
+          <div id="content">  
+          </div>
+          <div>
+            <!-- <form onSubmit=App.createDocument()> -->
+            <form onSubmit="App.createDocument(); return false;">
+              <input type="submit" value="upload">
+            </form>
+          </div>
+          <div>
+            <table id="doctable" class="table table-striped">
+              <tr>
+                <th>Document Name </th>
+                <th>Document Hash</th>
+                <th> Status </th>
+              </tr>
+              <tr>
+                <td> Tenth Marksheet </td>
+                <td> 12345 </td>
+                <td> <form onSubmit="App.createDocument('tenth_marksheet'); return false;">
+                        <input type="submit" value="upload">
+                     </form> 
+                </td>
+              </tr>
+              <tr>
+                <td> Twelfth Marksheet </td>
+                <td> 12345 </td>
+                <td> <form onSubmit="App.createDocument('twelfth_marksheet'); return false;">
+                        <input type="submit" value="upload">
+                    </form> 
+                </td>
+              </tr>
+              <tr>
+                <td> Leaving Certificate </td>
+                <td> 12345 </td>
+                <td> <form onSubmit="App.createDocument('leaving_certificate'); return false;">
+                      <input type="submit" value="upload">
+                    </form> 
+                </td>
+              </tr>
+              <tr>
+                <td> CET Score Card </td>
+                <td> 12345 </td>
+                <td> <form onSubmit="App.createDocument('cet_scorecard'); return false;">
+                        <input type="submit" value="upload">
+                    </form> 
+                </td>
+              </tr>
+              <tr>
+                <td> Aadhar Card </td>
+                <td> 12345 </td>
+                <td> <form onSubmit="App.createDocument('aadhar_card'); return false;">
+                          <input type="submit" value="upload">
+                    </form> 
+                </td>
+              </tr>
+            </table>
           </div>
         </main>
       </div>

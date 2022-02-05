@@ -63,6 +63,18 @@ App = {
       console.log(App.admission)
     },
 
+    createDocument: async (docType) => {
+      console.log('createDocument() called!')
+      console.log('Doc type :', docType)
+      App.setLoading(true)
+      // const content = $('#newTask').val()
+      const studentUid = '2018140036'
+      const docHash = 'sarthakhash'
+      // const docType = 'aadhar'
+      await App.admission.createDocument(studentUid, docHash, docType, { from: App.account})
+      window.location.reload()
+    },
+
     render: async () => {
       // Prevent double render
       if (App.loading) {
