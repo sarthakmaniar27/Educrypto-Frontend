@@ -1,0 +1,41 @@
+<html>
+    <body>
+        <style>
+            /* .center {
+              margin: auto;
+              width: 60%;
+              padding: 10px;
+              justify-content: center;
+            } */
+            </style>
+        <div>
+            <div>
+              <div class="row container" >
+                <main role="main" className="col-lg-12 d-flex text-center">
+                  <div className="content mr-4 ml-4">
+                      <h2>Student Login</h2>
+                        <form onSubmit="Login.loginUser(); return false;">
+                        <div class="form-group">
+                          <label for="exampleInputEmail1">UID</label>
+                          <input type="text" class="form-control"  placeholder="Enter UID" name="uid" id="uid">
+                        </div>
+                        <div class="form-group">
+                          <label for="exampleInputPassword1">Password</label>
+                          <input type="password" class="form-control" placeholder="Password" name="password" id="password">
+                        </div>
+                        <button type="submit" class="btn btn-primary" value="Login">Login</button>
+                      </form>
+                  </div>
+                </main>
+              </div>
+            </div>
+          </div>
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+          <!-- Include all compiled plugins (below), or include individual files as needed -->
+          <script src="vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+          <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+          <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+          <script src="login.js"></script>
+          
+    </body>
+</html>

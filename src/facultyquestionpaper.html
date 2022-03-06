@@ -1,0 +1,40 @@
+<html>
+    <body>
+        <div>
+            <div>
+              <div class="row container" >
+                <main role="main" className="col-lg-12 d-flex text-center">
+                  <div className="content mr-4 ml-4">
+                      <h2>Create Test</h2>
+                        <form onSubmit="FacultyQuestionPaper.submitQuestionPaper(); return false;">
+                        <div class="form-group">
+                          <label for="exampleInputEmail1">Enter Test Name</label>
+                          <input type="text" class="form-control"  placeholder="Test Name" name="testname" id="testname">
+                          <label for="exampleInputEmail1">Enter Branch</label>
+                          <input type="text" class="form-control"  placeholder="Branch" name="branch" id="branch">
+                          <label for="exampleInputEmail1">Enter Subject</label>
+                          <input type="text" class="form-control"  placeholder="Subject" name="subject" id="subject"> 
+                          <input type='file' id="question_paper_upload" onChange="FacultyQuestionPaper.captureFile(event); return false;" />
+                           
+                          <!-- Add Compression technique  -->
+                          <input type="submit" id="createTest" value="Create Test"  class="btn btn-primary">
+                    </form>
+                  </div>
+                </main>
+              </div>
+            </div>
+          </div>
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+          <!-- Include all compiled plugins (below), or include individual files as needed -->
+          <script src="vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+          <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+          <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+          <script src="facultyquestionpaper.js"></script>        
+            <script src="https://cdn.jsdelivr.net/npm/@truffle/contract@4.3.5/dist/truffle-contract.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/ipfs-http-client/dist/index.min.js"></script>
+            <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/buffer@6.0.3/index.min.js"></script>
+          
+    </body>
+</html>

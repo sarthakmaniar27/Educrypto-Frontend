@@ -22,28 +22,46 @@ contract Admission {
     documents[documentCount] = Document(documentCount, _studentUid, _docHash, _docType);
     // emit TaskCreated(documentCount, _content, false);
   }
-  function getStudentDocuments(string memory _studentUid) public returns (uint[] memory, string[] memory, string[] memory, string[] memory){
-    uint[] memory docId = new uint[](5);
-    string[] memory studentUid = new string[](5);
-    string[] memory docHash = new string[](5);
-    string[] memory docType = new string[](5);
+}
 
-    uint counter = 0; 
-    for(uint i=0; i<documentCount; i++) {
-      if(keccak256(bytes(documents[i].studentUid)) == keccak256(bytes(_studentUid))) {
-        studentUid[counter] = documents[i].studentUid;
-        docHash[counter] = documents[i].docHash;
-      }
-      return (docId,studentUid,docHash,docType);
-    }
+
+contract Exam {
+  uint public questionPaperCount = 0;
+  uint public answerPaperCount = 0;
+
+
+  struct QuestionPaper {
+    uint qpId;
+    string fid;
+    string testName;
+    string qpHash;
+    string branch;
+    string subject;
+  }
+
+  struct AnswerPaper {
+    uint apId;
+    string studentUid;
+    string testName;
+    string apHash;
+    string branch;
+    string subject;
   }
 
 
-  // function toggleCompleted(uint _id) public {
-  //   Document memory _task = documents[_id];
-  //   _task.completed = !_task.completed;
-  //   documents[_id] = _task;
-  //   emit TaskCompleted(_id, _task.completed);
-  // }
+  mapping(uint => QuestionPaper) public questionpapers;
+  mapping(uint => AnswerPaper) public answerpapers;
 
+ 
+
+  function createQuestionPaper(string memory _fid, string memory _testName, string memory _qpHash, string memory _branch, string memory _subject) public {
+    questionPaperCount++;
+    questionpapers[questionPaperCount] = QuestionPaper(questionPaperCount, _fid, _testName, _qpHash, _branch,_subject);
+  }
+
+  
+  function createAnswerPaper(string memory _studentUid, string memory _testName, string memory _apHash, string memory _branch, string memory _subject) public {
+    answerPaperCount++;
+    answerpapers[answerPaperCount] = AnswerPaper(answerPaperCount, _studentUid, _testName, _apHash, _branch,_subject);
+  }
 }

@@ -1,14 +1,20 @@
 App = {
     loading: false,
     contracts: {},
+    StudentDocJson:[],
+    ipfs:"",
+    docHashMap:{},
+
   
     load: async () => {
+      App.ipfs = window.IpfsHttpClient.create({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' })
       await App.loadWeb3()
       await App.loadAccount()
       await App.loadContract()
       await App.render()
     },
-  
+    
+
     // https://medium.com/metamask/https-medium-com-metamask-breaking-change-injecting-web3-7722797916a8
     loadWeb3: async () => {
       // const web3 = window.web3
@@ -63,16 +69,74 @@ App = {
       console.log(App.admission)
     },
 
-    createDocument: async (docType) => {
-      console.log('createDocument() called!')
+    createDocument: async (studentUid,docHash,docType) => {
+      const status =$('#'+docType).val()
+      console.log('createDocument() called!',status)
       console.log('Doc type :', docType)
       App.setLoading(true)
-      // const content = $('#newTask').val()
-      const studentUid = '2018140036'
-      const docHash = 'sarthakhash'
-      // const docType = 'aadhar'
+      console.log("Student UID from Browser",studentUid)
       await App.admission.createDocument(studentUid, docHash, docType, { from: App.account})
       window.location.reload()
+    },
+
+
+
+    viewDocument: async (docType) => {
+      const studentUID=localStorage.getItem("studentUID")
+      console.log("Displaying "+docType+" of "+studentUID)
+      const docHash =App.docHashMap[docType]
+      console.log(docHash)
+      let url = `https://ipfs.infura.io/ipfs/${docHash}`;
+      window.location.href=url
+
+    },
+    shareDocument: async (event,docType) => {
+      event.preventDefault();
+      const {third_party_name} = event.target.elements
+      const studentUID=localStorage.getItem("studentUID")
+      // const third_party_name =$('#'+third_party_name).val()
+      console.log("Sharing "+docType+" of "+studentUID+" with "+third_party_name.value)
+      const res= await axios.get("http://127.0.0.1:8000/share/",{
+        params:{
+          studentUID:studentUID,
+          third_party_name:third_party_name.value,
+          docType:docType
+        }
+      })
+      console.log(res.data.atp)
+      alert("ATP :"+res.data.atp);
+    },
+    
+    captureFile :async (event,docType) => {
+      event.preventDefault()
+      
+      // process file for IPFS
+      const file = event.target.files[0]
+      console.log('File Captured...',file)
+      const reader = new FileReader()
+      await reader.readAsArrayBuffer(file)
+      reader.onloadend = async () => {
+          console.log("Window Buffer",reader.result)
+          App.buffer=new window.Buffer(reader.result);
+          console.log(App.buffer)
+          console.log("IPFS code")
+          const output = await App.ipfs.add(App.buffer, (error, result) => {
+            if(error){
+              console.error(error)
+              return
+            }
+          })
+          console.log("Output",output.path)
+          const docHash=output.path
+          const studentUID=localStorage.getItem("studentUID")
+          // let url = `https://ipfs.infura.io/ipfs/${output.path}`;
+
+          await App.admission.createDocument(studentUID, docHash, docType, { from: App.account})
+          //https://ipfs.infura.io/ipfs/QmPZRNTxTWorK3RjYy2Fj1y3bmbkTGu4FTcU6V3Yx6A9ba
+          window.location.reload()
+
+      }
+
     },
 
     render: async () => {
@@ -87,17 +151,18 @@ App = {
       // Render Account
       $('#account').html(App.account)
   
-      // Render Tasks
-      await App.renderDocuments()
-  
+      // Render Document for given UID
+      await App.renderDocuments(localStorage.getItem("studentUID"))
+
       // Update loading state
       App.setLoading(false)
     },
 
-    renderDocuments: async () => {
+    renderDocuments: async (uid) => {
       // Load the total task count from the blockchain
       const documentCount = await App.admission.documentCount()
       const $taskTemplate = $('.taskTemplate')
+      // const StudentDocJson=[]
   
       // Render out each task with a new task template
       for (var i = 1; i <= documentCount; i++) {
@@ -107,18 +172,14 @@ App = {
         const studentUid = document[1]
         const docHash = document[2]
         const docType = document[3]
-  
-        // Create the html for the task
-        // const $newTaskTemplate = $taskTemplate.clone()
-        // // $newTaskTemplate.find('.content').html(docId + ' ' + studentUid + ' '+ docHash + ' ' + docType)
-        // $newTaskTemplate.find('.content').html(docHash)
-        // console.log(docHash)
-  
-        // Show the task
-        // $newTaskTemplate.show()
+        if(studentUid===uid){
+          App.StudentDocJson.push({"docId":docId,"studentUid":studentUid,"docHash":docHash,"docType":docType})
+          // $('#'+docType).val('View');
+          App.docHashMap[docType]=docHash
+          $('#'+docType+'_upload').hide();
+          $('#'+docType).show();
 
-        $('#content').html(docHash)
-  
+        }
       }
     },
 
@@ -133,12 +194,20 @@ App = {
         loader.hide()
         content.show()
       }
-    }
+    },
+  
+
   
   }
   
   $(() => {
     $(window).load(() => {
       App.load()
+      $('#tenth_marksheet').hide();
+      $('#twelfth_marksheet').hide();
+      $('#leaving_certificate').hide();
+      $('#cet_scorecard').hide();
+      $('#aadhar_card').hide();
+
     })
   })
