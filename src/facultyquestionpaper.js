@@ -6,6 +6,8 @@ FacultyQuestionPaper = {
     docHashMap:{},
     qpHash:"",
     facultyQuestionPaperCount:0,
+    facultyAnswerPaperCount:0,
+    AnswerPapers:[],
 
   
     load: async () => {
@@ -14,6 +16,7 @@ FacultyQuestionPaper = {
       await FacultyQuestionPaper.loadAccount()
       await FacultyQuestionPaper.loadContract()
       await FacultyQuestionPaper.render()
+      // await FacultyQuestionPaper.renderAnswerPapers()
     },
     
 
@@ -101,7 +104,6 @@ FacultyQuestionPaper = {
     },
 
     submitQuestionPaper:async (event) => {
-
         const qpHash=FacultyQuestionPaper.qpHash
         const fid=localStorage.getItem("fid")
         const testName =$('#testname').val()
@@ -114,19 +116,50 @@ FacultyQuestionPaper = {
 
       await FacultyQuestionPaper.createQuestionPaper(fid, testName, qpHash, branch, subject)
       console.log(fid, testName, qpHash, branch, subject)
+    },
+
+    viewUploadedAnswerPapers: async(testName,branch,subject)=>{
+      console.log(testName,branch,subject)
+
+      localStorage.setItem("testName",testName)
+      localStorage.setItem("branch",branch)
+      localStorage.setItem("subject",subject) 
+
+      // const answerPaperCount = await FacultyQuestionPaper.exam.answerPaperCount()
+  
+      // // Render out each task with a new task template
+      // for (var i = 1; i <= answerPaperCount; i++) {
+      //   // Fetch the task data from the blockchain
+      //   const ap = await FacultyQuestionPaper.exam.answerpapers(i)
+      //   const apId = ap[0].toNumber()
+      //   const studentUid = ap[1]
+      //   const testName = ap[2]
+      //   const apHash = ap[3]
+      //   const branch = ap[4]
+      //   const subject = ap[5]
+
+
+      //   if(localStorage.getItem("fid")===fid){
+      //     FacultyQuestionPaper.QuestionPapers.push({"qpId":qpId,"fid":fid,"testName":testName,"qpHash":qpHash,"branch":branch,"subject":subject})
+      //       FacultyQuestionPaper.facultyQuestionPaperCount++
+      //   }
+      // }
+      // console.log(FacultyQuestionPaper.QuestionPapers)
+      window.location.href="http://localhost:3000/facultyanswerpapers.html"
+
+
+
 
     },
 
     render: async () => {
-
-  
       // Render Account
       $('#account').html(FacultyQuestionPaper.account)
   
       // Render Document for given UID
       await FacultyQuestionPaper.renderDocuments()
       var tableString ="<table id='qptable' class='table table-striped'>";
-      tableString +="<tr> <th>QP ID <th> Subject <th> Test Name <th> Branch <th> View </tr>";
+      tableString +="<tr> <th>QP ID <th> Subject <th> Test Name <th> Branch <th> View Question Paper <th> View Uploaded Answer Papers</tr>";
     for(var i = 0; i < FacultyQuestionPaper.facultyQuestionPaperCount; i++) {
         var x=i+''
         console.log(x)
@@ -137,6 +170,13 @@ FacultyQuestionPaper = {
         tr += "<td>" + FacultyQuestionPaper.QuestionPapers[x].branch + "</td>";
         let url = `https://ipfs.infura.io/ipfs/${FacultyQuestionPaper.QuestionPapers[x].qpHash}`;
         tr += "<td> <a class='btn btn-primary' href="+url+ "> View</a> </td>";
+        let testName=`${FacultyQuestionPaper.QuestionPapers[x].testName}`;
+        let branch=`${FacultyQuestionPaper.QuestionPapers[x].branch}`;
+        let subject=`${FacultyQuestionPaper.QuestionPapers[x].subject}`;
+        tr += "<td><button id='view_answer_papers' onClick=\"FacultyQuestionPaper.viewUploadedAnswerPapers('"+testName+"','"+branch+"','"+subject+"'\)\"; return false;>View Answer Papers</button> </td>";
+
+        // tr += "<td> <a class='btn btn-primary' href="+url+ "> View Answer Papers</a> </td>";
+
         tr +="</tr>";
 
 

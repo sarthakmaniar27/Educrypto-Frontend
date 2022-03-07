@@ -6,6 +6,7 @@ StudentQuestionPaper = {
     ipfs:"",
     docHashMap:{},
     qpHash:"",
+    apHash:"",
     studentQuestionPaperCount:0,
     studentAnswerPaperCount:0,
     Studentbranch:"",
@@ -129,8 +130,6 @@ StudentQuestionPaper = {
     },
 
     validateStudentAnswerPaper: (qptestName,qpbranch,qpsubject) => {
-        console.log("Validate StudentAnswerPaper call",StudentQuestionPaper.studentAnswerPaperCount)
-
         for (var i = 0; i < StudentQuestionPaper.studentAnswerPaperCount; i++) {
             const x=i+''
             const apId = StudentQuestionPaper.AnswerPapers[x].apId
@@ -139,10 +138,9 @@ StudentQuestionPaper = {
             const apHash = StudentQuestionPaper.AnswerPapers[x].apHash
             const branch = StudentQuestionPaper.AnswerPapers[x].branch
             const subject = StudentQuestionPaper.AnswerPapers[x].subject
-            console.log("For every answer paper")
-            console.log(testName,branch,subject)
+
             if(qptestName==testName && qpbranch==branch && qpsubject==subject){
-                console.log("Question Paper Answer Paper Pair exists")
+                StudentQuestionPaper.apHash=apHash
                 return true
             }
     }
@@ -170,20 +168,15 @@ StudentQuestionPaper = {
             let branch=`${StudentQuestionPaper.QuestionPapers[x].branch}`;
             let subject=`${StudentQuestionPaper.QuestionPapers[x].subject}`;
             tr += "<td> <a class='btn btn-primary' href="+url+ "> View Question Paper</a> </td>";
-            // tr += "<td><input type='file' id='answer_paper_upload' onChange='StudentAnswerPaper.captureFile("+StudentQuestionPaper.QuestionPapers[x].testName+","+StudentQuestionPaper.QuestionPapers[x].branch+","+StudentQuestionPaper.QuestionPapers[x].subject+"); return false;'/> </td>";
-            // $('#contentData').append("<div class='media'>" + "</p><a class='btn' href='" + type + "'  onclick=\"(canLaunch('" + v.LibraryItemId + " '))\">View &raquo;</a></div></div>")
-
-            // if answer paper is submitted toh render View button
-
 
             if(StudentQuestionPaper.validateStudentAnswerPaper(testName,branch,subject)){
-                tr += "<td> <a class='btn btn-primary' href="+url+ "> View Answer Paper</a> </td>";
+                let apUrl=`https://ipfs.infura.io/ipfs/${StudentQuestionPaper.apHash}`; 
+                tr += "<td> <a class='btn btn-primary' href="+apUrl+ "> View Answer Paper</a> </td>";
             }
             else{
                 tr += "<td><input type='file' id='answer_paper_upload' onChange=\"StudentAnswerPaper.captureFile(event,'"+testName+"','"+branch+"','"+subject+"'\)\"; return false;/> </td>";
             }
 
-            // else
 
             tr +="</tr>";
             tableString+=tr    
@@ -202,7 +195,6 @@ StudentQuestionPaper = {
           uid:uid
           }
       })
-      console.log(Studentbranch)
       StudentQuestionPaper.Studentbranch=Studentbranch
       // Render out each task with a new task template
       for (var i = 1; i <= questionPaperCount; i++) {
@@ -223,12 +215,6 @@ StudentQuestionPaper = {
       console.log(StudentQuestionPaper.QuestionPapers)
     },
 
-
-
-
-
-    
-  
 
     setLoading: (boolean) => {
       StudentQuestionPaper.loading = boolean

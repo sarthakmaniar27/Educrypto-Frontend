@@ -96,6 +96,7 @@ StudentAnswerPaper = {
           const studentId=localStorage.getItem("studentUID")
           await StudentAnswerPaper.exam.createAnswerPaper(studentId, testName, StudentAnswerPaper.apHash, branch,subject, { from: StudentAnswerPaper.account})
 
+          window.location.reload()
 
       }
 
