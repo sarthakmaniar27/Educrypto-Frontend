@@ -189,6 +189,7 @@ FacultyQuestionPaper = {
 },
 
     renderDocuments: async () => {
+      var startTime = performance.now()
 
       // Load the total task count from the blockchain
       const questionPaperCount = await FacultyQuestionPaper.exam.questionPaperCount()
@@ -209,6 +210,9 @@ FacultyQuestionPaper = {
             FacultyQuestionPaper.facultyQuestionPaperCount++
         }
       }
+      var endTime = performance.now()
+      console.log(`Call to render question papers from Blockchain took ${endTime - startTime} milliseconds`)
+
       console.log(FacultyQuestionPaper.QuestionPapers)
     },
 

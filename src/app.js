@@ -108,6 +108,7 @@ App = {
     },
     
     captureFile :async (event,docType) => {
+      var startTime = performance.now()
       event.preventDefault()
       
       // process file for IPFS
@@ -116,7 +117,6 @@ App = {
       const reader = new FileReader()
       await reader.readAsArrayBuffer(file)
       reader.onloadend = async () => {
-          console.log("Window Buffer",reader.result)
           App.buffer=new window.Buffer(reader.result);
           console.log(App.buffer)
           console.log("IPFS code")
@@ -133,6 +133,8 @@ App = {
 
           await App.admission.createDocument(studentUID, docHash, docType, { from: App.account})
           //https://ipfs.infura.io/ipfs/QmPZRNTxTWorK3RjYy2Fj1y3bmbkTGu4FTcU6V3Yx6A9ba
+          var endTime = performance.now()
+          console.log(`Call to upload on IPFS and blockchain took ${endTime - startTime} milliseconds`)
           window.location.reload()
 
       }
