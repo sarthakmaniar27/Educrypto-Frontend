@@ -3,12 +3,14 @@ StudentQuestionPaper = {
     contracts: {},
     QuestionPapers:[],
     AnswerPapers:[],
+    FacultyNotes:[],
     ipfs:"",
     docHashMap:{},
     qpHash:"",
     apHash:"",
     studentQuestionPaperCount:0,
     studentAnswerPaperCount:0,
+    facultyNotesCount:0,
     Studentbranch:"",
 
   
@@ -19,6 +21,7 @@ StudentQuestionPaper = {
       await StudentQuestionPaper.loadContract()
       await StudentQuestionPaper.renderAnswerPapers()
       await StudentQuestionPaper.render()
+      await StudentQuestionPaper.renderFacultyNotes()
 
     },
     
@@ -67,12 +70,9 @@ StudentQuestionPaper = {
     },
 
     loadContract: async () => {
-      // Create a JavaScript version of the smart contract
       const exam = await $.getJSON('Exam.json')
       StudentQuestionPaper.contracts.Exam = TruffleContract(exam)
       StudentQuestionPaper.contracts.Exam.setProvider(StudentQuestionPaper.web3Provider)
-  
-      // Hydrate the smart contract with values from the blockchain
       StudentQuestionPaper.exam = await StudentQuestionPaper.contracts.Exam.deployed()
     },
 
@@ -100,16 +100,12 @@ StudentQuestionPaper = {
       }
 
     },
+    
     renderAnswerPapers: async () => {
-        // Render Account
         $('#account').html(StudentQuestionPaper.account)
         const AnswerPaperCount = await StudentQuestionPaper.exam.answerPaperCount()
         const uid=localStorage.getItem("studentUID")
-
-
-
         for (var i = 1; i <= AnswerPaperCount; i++) {
-            // Fetch the task data from the blockchain
             const ap = await StudentQuestionPaper.exam.answerpapers(i)
             const apId = ap[0].toNumber()
             const studentUid = ap[1]
@@ -186,8 +182,6 @@ StudentQuestionPaper = {
 },
 
     renderDocuments: async () => {
-
-      // Load the total task count from the blockchain
       const questionPaperCount = await StudentQuestionPaper.exam.questionPaperCount()
       const uid=localStorage.getItem("studentUID")
       const Studentbranch= await axios.get("http://127.0.0.1:8000/getstudentbranch/",{
@@ -196,9 +190,7 @@ StudentQuestionPaper = {
           }
       })
       StudentQuestionPaper.Studentbranch=Studentbranch
-      // Render out each task with a new task template
       for (var i = 1; i <= questionPaperCount; i++) {
-        // Fetch the task data from the blockchain
         const qp = await StudentQuestionPaper.exam.questionpapers(i)
         const qpId = qp[0].toNumber()
         const fid = qp[1]
@@ -215,6 +207,48 @@ StudentQuestionPaper = {
       console.log(StudentQuestionPaper.QuestionPapers)
     },
 
+    renderFacultyNotes: async () => {
+      const notesCount = await StudentQuestionPaper.exam.notesCount()
+      for (var i = 1; i <= notesCount; i++) {
+        const notes = await StudentQuestionPaper.exam.facultynotes(i)
+        const notesId = notes[0].toNumber()
+        const fid = notes[1]
+        const notesHash = notes[2]
+        const testName = notes[3]
+        const branch = notes[4]
+        const subject = notes[5]
+        let studentBranch=StudentQuestionPaper.Studentbranch.data.branch
+        if(studentBranch===branch){
+          StudentQuestionPaper.FacultyNotes.push({"notesId":notesId,"fid":fid,"testName":testName,"notesHash":notesHash,"branch":branch,"subject":subject})
+          StudentQuestionPaper.facultyNotesCount++
+        }
+      }
+      console.log('Faculty Notes Rendered')
+      console.log(StudentQuestionPaper.FacultyNotes)
+
+
+
+      var tableString ="<table id='qptable' class='table table-striped'>";
+      tableString +="<tr> <th>Notes ID <th> Subject <th> Notes Name <th> Branch <th> View Notes </tr>";
+      for(var i = 0; i < StudentQuestionPaper.facultyNotesCount; i++) {
+        var x=i+''
+        console.log(x)
+        var tr = "<tr>" ;
+        tr += "<td>" + StudentQuestionPaper.FacultyNotes[x].notesId  + "</td>";
+        tr += "<td>" + StudentQuestionPaper.FacultyNotes[x].subject + "</td>";  
+        tr += "<td>" + StudentQuestionPaper.FacultyNotes[x].testName + "</td>";
+        tr += "<td>" + StudentQuestionPaper.FacultyNotes[x].branch + "</td>";
+        let url = `https://ipfs.infura.io/ipfs/${StudentQuestionPaper.FacultyNotes[x].notesHash}`;
+        tr += "<td> <a class='btn btn-primary' href="+url+ " download> View</a> </td>";
+        let testName=`${StudentQuestionPaper.FacultyNotes[x].testName}`;
+        let branch=`${StudentQuestionPaper.FacultyNotes[x].branch}`;
+        let subject=`${StudentQuestionPaper.FacultyNotes[x].subject}`;
+        tr +="</tr>";
+        tableString+=tr        
+    }
+    tableString+="</table>";
+    $('#notestableView').html(tableString)
+    },
 
     setLoading: (boolean) => {
       StudentQuestionPaper.loading = boolean

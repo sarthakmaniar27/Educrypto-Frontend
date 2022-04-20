@@ -16,23 +16,15 @@
         <br>
         <br>
         <br>
-        <br>
-       <div id="welcometext">
-       </div>
-       <br>
+      
        <div>
-           <a href="http://localhost:3000/facultyquestionpaper.html" class="btn btn-primary btn-rounded">
-               Create Question Paper
-           </a>
-           <a href="http://localhost:3000/facultyviewquestionpapers.html" class="btn btn-primary btn-rounded">
-            View Question Papers
-            </a>
+        
             <button type="button" class="btn btn-primary btn-rounded" data-toggle="modal" data-target="#exampleModal">
-              Generate Subject-Class Report
+              Generate Class-wise Final Result
           </button>
-            <a href="http://localhost:3000/facultynotesupload.html" class="btn btn-primary btn-rounded">
+            <!-- <a href="http://localhost:3000/facultynotesupload.html" class="btn btn-primary btn-rounded">
               Notes Section
-            </a>
+            </a> -->
        </div>
 
 
@@ -52,15 +44,13 @@
             
                 <div className="content mr-4 ml-4">
                     
-                      <form onSubmit="FacultyQuestionPaper.generateSubjectReport(); return false;">
+                      <form onSubmit="FacultyQuestionPaper.generateClassReport(); return false;">
                           <div class="form-group">
                               <label for="exampleInputEmail1">Enter Branch</label>
                               <input type="text" class="form-control"  placeholder="Branch" name="branch" id="branch">
-                              <label for="exampleInputEmail1">Enter Subject</label>
-                              <input type="text" class="form-control"  placeholder="Subject" name="subject" id="subject"> 
                               <br>
                               <br>
-                              <input type="submit" id="generateSubjectReport" value="Generate Subject Report"  class="btn btn-primary">
+                              <input type="submit" id="generateClassReport" value="Generate Class Report"  class="btn btn-primary">
                           </div>
                       </form>
                 </div>
@@ -75,15 +65,14 @@
           <script src="vendor/bootstrap/dist/js/bootstrap.min.js"></script>
           <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
           <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-          <script src="facultylogin.js"></script>
           <script src="facultyquestionpaper.js"></script>
-
           <script src="https://cdn.jsdelivr.net/npm/@truffle/contract@4.3.5/dist/truffle-contract.js"></script>
           <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
           <script src="https://cdn.jsdelivr.net/npm/ipfs-http-client/dist/index.min.js"></script>
           <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
           <script src="https://cdn.jsdelivr.net/npm/buffer@6.0.3/index.min.js"></script>
           <script src="https://cdn.jsdelivr.net/npm/@yr/performance-now@1.0.0/lib/performance-now.min.js"></script>
+        
         </div>
     </body>
 </html>

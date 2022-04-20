@@ -16,9 +16,8 @@ App = {
     
 
     // https://medium.com/metamask/https-medium-com-metamask-breaking-change-injecting-web3-7722797916a8
+
     loadWeb3: async () => {
-      // const web3 = window.web3
-      // await window.ethereum.enable()
       if (typeof web3 !== 'undefined') {
         App.web3Provider = web3.currentProvider
         web3 = new Web3(web3.currentProvider)
@@ -26,33 +25,25 @@ App = {
       } else {
         window.alert("Please connect to Metamask.")
       }
-      // Modern dapp browsers...
       if (window.ethereum) {
         window.web3 = new Web3(ethereum)
         try {
-          // Request account access if needed
           await ethereum.enable()
-          // Acccounts now exposed
           web3.eth.sendTransaction({/* ... */})
         } catch (error) {
-          // User denied account access...
         }
       }
-      // Legacy dapp browsers...
       else if (window.web3) {
         App.web3Provider = web3.currentProvider
         window.web3 = new Web3(web3.currentProvider)
-        // Acccounts always exposed
         web3.eth.sendTransaction({/* ... */})
       }
-      // Non-dapp browsers...
       else {
         console.log('Non-Ethereum browser detected. You should consider trying MetaMask!')
       }
     },
   
     loadAccount: async () => {
-      // Set the current blockchain account
       const accounts = await web3.eth.getAccounts()
       App.account = accounts[0]
       console.log('account is loaded..',App.account)
@@ -90,6 +81,7 @@ App = {
       window.location.href=url
 
     },
+    
     shareDocument: async (event,docType) => {
       event.preventDefault();
       const {third_party_name} = event.target.elements
@@ -136,39 +128,22 @@ App = {
           var endTime = performance.now()
           console.log(`Call to upload on IPFS and blockchain took ${endTime - startTime} milliseconds`)
           window.location.reload()
-
       }
-
     },
 
     render: async () => {
-      // Prevent double render
       if (App.loading) {
         return
       }
-  
-      // Update app loading state
       App.setLoading(true)
-  
-      // Render Account
       $('#account').html(App.account)
-  
-      // Render Document for given UID
       await App.renderDocuments(localStorage.getItem("studentUID"))
-
-      // Update loading state
       App.setLoading(false)
     },
 
     renderDocuments: async (uid) => {
-      // Load the total task count from the blockchain
       const documentCount = await App.admission.documentCount()
-      const $taskTemplate = $('.taskTemplate')
-      // const StudentDocJson=[]
-  
-      // Render out each task with a new task template
       for (var i = 1; i <= documentCount; i++) {
-        // Fetch the task data from the blockchain
         const document = await App.admission.documents(i)
         const docId = document[0].toNumber()
         const studentUid = document[1]
@@ -176,11 +151,9 @@ App = {
         const docType = document[3]
         if(studentUid===uid){
           App.StudentDocJson.push({"docId":docId,"studentUid":studentUid,"docHash":docHash,"docType":docType})
-          // $('#'+docType).val('View');
           App.docHashMap[docType]=docHash
           $('#'+docType+'_upload').hide();
           $('#'+docType).show();
-
         }
       }
     },
