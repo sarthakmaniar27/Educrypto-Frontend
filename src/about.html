@@ -40,27 +40,13 @@ html {
   padding: 0 16px;
 }
 
-.container::after, .row::after {
-  content: "";
-  clear: both;
-  display: table;
-}
+
 
 .title {
   color: grey;
 }
 
-.button {
-  border: none;
-  outline: 0;
-  display: inline-block;
-  padding: 8px;
-  color: white;
-  background-color: #000;
-  text-align: center;
-  cursor: pointer;
-  width: 100%;
-}
+
 
 .button:hover {
   background-color: #555;
@@ -90,18 +76,20 @@ html {
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active"><a href="#" class="nav-link">Home <span class="sr-only">(current)</span></a></li>
           <li class="nav-item"><a href="/login.html" class="nav-link">Student Login</a></li>
-          <li class="nav-item"><a href="/about.html" class="nav-link">About</a></li>
-          <li class="nav-item"><a href="facultynotesupload.html" class="nav-link">Notes Section</a></li>
-          <li class="nav-item"><a href="studentviewquestionpaper.html" class="nav-link">Exam Section</a></li>
+          <li class="nav-item"><a href="/facultylogin.html" class="nav-link">Faculty Login</a></li>
+          <li class="nav-item"><a href="/thirdpartyaccess.html" class="nav-link">Third-Party Access</a></li>
+          <li class="nav-item"><a href="/examsectiondashboard.html" class="nav-link">Exam Section</a></li>
+
           <li class="nav-item"><a href="/contact.html" class="nav-link">Contact</a></li>
         </ul>
       </div>
     </div>
   </nav>
-  <div class="container">
+  <div class="container" style="padding: 0 16px;">
   <div class="about-section">
     <h1>Educrypto : Transforming Education through Blockchain</h1>
-    <p>EduCrypto is an Ethereum blockchain and IPFS based system for storing, retrieving, and authenticating educational documents as well as streamlining the entire process of examination and result generation. </p>
+    <img src="https://www.connectbit.com/wp-content/uploads/2018/03/blockchain-technology-explained.png" width="200" alt="" class="d-inline-block align-middle mr-2">
+    <p><h5>EduCrypto is an Ethereum blockchain and IPFS based system for storing, retrieving, and authenticating educational documents as well as streamlining the entire process of examination and result generation. <br>The system aims to automate the generation of grade sheets and mark sheets for the faculty and the exam section respectively. </h5></p>
     <p>The system comprises three main modules: Admission; Examination and Results; Third-Party Module.</p>
   </div>
   
@@ -115,7 +103,7 @@ html {
             <h2>Kailas Devadkar</h2>
             <p class="title">Faculty Guide</p>
             <p>kailas_dewadkar@spit.ac.in</p>
-            <p><button class="button">Contact</button></p>
+            <p><button class="btn btn-dark" style="border: none; outline: 0; display: inline-block;padding: 8px; color: white; background-color: #000; text-align: center; cursor: pointer; width: 100%;">Contact</button></p>
           </div>
         </div>
       </div>
@@ -129,7 +117,7 @@ html {
           <h2>Sagar Badlani</h2>
           <p class="title">Co-Author</p>
           <p>sagarbadlani2@gmail.com</p>
-          <p><button class="button">Contact</button></p>
+          <p><button class="btn btn-dark" style="border: none; outline: 0; display: inline-block;padding: 8px; color: white; background-color: #000; text-align: center; cursor: pointer; width: 100%;">Contact</button></p>
         </div>
       </div>
     </div>
@@ -138,10 +126,10 @@ html {
       <div class="card">
         <img src="public/tanvi.jpg" alt="Mike" style="width:100% ; height:400">
         <div class="container">
-          <h2>Mike Ross</h2>
+          <h2>Tanvi Aditya</h2>
           <p class="title">Co-Author</p>
           <p>tanviaditya1@gmail.com.com</p>
-          <p><button class="button">Contact</button></p>
+          <p><button class="btn btn-dark" style="border: none; outline: 0; display: inline-block;padding: 8px; color: white; background-color: #000; text-align: center; cursor: pointer; width: 100%;">Contact</button></p>
         </div>
       </div>
     </div>
@@ -150,10 +138,10 @@ html {
       <div class="card">
         <img src="public/sarthak.png" alt="John" style="width:100% ; height:400">
         <div class="container">
-          <h2>John Doe</h2>
+          <h2>Sarthak Maniar</h2>
           <p class="title">Co-Author</p>
           <p>sarthakmaniar27@gmail.com.com</p>
-          <p><button class="button">Contact</button></p>
+          <p><button class="btn btn-dark" style="border: none; outline: 0; display: inline-block;padding: 8px; color: white; background-color: #000; text-align: center; cursor: pointer; width: 100%;">Contact</button></p>
         </div>
       </div>
     </div>

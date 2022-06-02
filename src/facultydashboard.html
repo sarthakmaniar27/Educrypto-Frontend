@@ -1,38 +1,105 @@
 <html>
     <body>
         <div>
-        <div class="container-fluid">
-        <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-            <a class="navbar-brand col-sm-3 col-md-2 mt-2 mb-2" href="http://localhost:3000/" target="_blank"> Faculty Dashboard</a>
-            <ul class="navbar-nav px-3">
-              <li class="nav-item text-nowrap d-none d-sm-none d-sm-block">
-                <small><a class="nav-link" href="#"><span id="account"></span></a></small>
-              </li>
-            </ul>
-          </nav>
-        </div>
+       <!-- NAVBAR-->
+      <nav class="navbar navbar-dark bg-dark flex-md-nowrap shadow-sm">
+      <div class="container">
+      <a href="#" class="navbar-brand">
+        <!-- Logo Image -->
+        <img src="https://www.connectbit.com/wp-content/uploads/2018/03/blockchain-technology-explained.png" width="45" alt="" class="d-inline-block align-middle mr-2">
+        <!-- Logo Text -->
+        <span class="text-uppercase font-weight-bold">Educrypto</span>
+      </a>
+  
+      <button type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"><span class="navbar-toggler-icon"></span></button>
+  
+      <div id="navbarSupportedContent" class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active"><a href="#" class="nav-link">Home <span class="sr-only">(current)</span></a></li>
+          <li class="nav-item"><a href="/about.html" class="nav-link">About</a></li>
+          <li class="nav-item"><a href="facultynotesupload.html" class="nav-link">Notes Section</a></li>
+          <li class="nav-item"><a href="studentviewquestionpaper.html" class="nav-link">Exam Section</a></li>
+          <li class="nav-item"><a href="/contact.html" class="nav-link">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+       
         <br>
         <br>
-        <br>
-        <br>
-        <br>
-        <br>
-       <div id="welcometext">
+       <div id="welcometext" class="container">
        </div>
        <br>
+
+       <div class="container">
+        <div>
+         <div class="row">
+           <div class="col-sm-3">
+             <div class="card" style="height: 280;">
+               <div class="card-body">
+                 <h5 class="card-title">Create Question Paper</h5>
+                 <p class="card-text">Faculties can create any subject test ISE/MSE/ESE and upload the question paper. This Question Paper will be visible to all the students enrolled for the course.</p>
+                 <div class="card-footer">
+                 <a href="http://localhost:3000/facultyquestionpaper.html" class="btn btn-primary btn-rounded">
+                  Create 
+                  </a>
+                  </div>
+               </div>
+             </div>
+           </div>
+           <div class="col-sm-3">
+             <div class="card" style="height: 280;">
+               <div class="card-body">
+                 <h5 class="card-title">View Question Papers</h5>
+                 <p class="card-text">Faculties can view their uploaded question papers as well as students' uploaded answer papers. Further, they can grade students.</p>
+                 <div class="card-footer">
+                 <a href="http://localhost:3000/facultyviewquestionpapers.html" class="btn btn-primary btn-rounded">
+                  View Question Papers
+                  </a>
+                  </div>             
+               </div>
+             </div>
+           </div>
+           <div class="col-sm-3">
+             <div class="card" style="height: 280;">
+               <div  class="card-body d-flex flex-column mt-auto">
+                 <h5 class="card-title">Notes Section</h5>
+                 <p class="card-text">Faculties can share their class notes with the students of respective class. These notes can asist students in their study preparation.</p>
+                 
+                <div class="card-footer">
+                  <a href="http://localhost:3000/facultynotesupload.html" class="btn btn-primary btn-rounded mt-auto align-self-end">
+                    Notes Section
+                  </a>                 
+                </div>          
+             </div>
+             </div>
+           </div>
+           <div class="col-sm-3">
+            <div class="card" style="height: 280;">
+              <div class="card-body d-flex flex-column mt-auto">
+                <h5 class="card-title">Subject-Class Report</h5>
+                <p class="card-text">Generate Class report for specific subject. This will include all test marks for the mentioned subject for all the enrolled students.</p>
+                <div class="card-footer">
+                  <button type="button" class="btn btn-primary btn-rounded mt-auto align-self-end" data-toggle="modal" data-target="#exampleModal">
+                    Generate Report
+                </button>  
+              </div>
+
+                 
+            </div>
+            </div>
+          </div>
+         </div>
+        </div>
+     </div>
+
+
+
        <div>
-           <a href="http://localhost:3000/facultyquestionpaper.html" class="btn btn-primary btn-rounded">
-               Create Question Paper
-           </a>
-           <a href="http://localhost:3000/facultyviewquestionpapers.html" class="btn btn-primary btn-rounded">
-            View Question Papers
-            </a>
-            <button type="button" class="btn btn-primary btn-rounded" data-toggle="modal" data-target="#exampleModal">
-              Generate Subject-Class Report
-          </button>
-            <a href="http://localhost:3000/facultynotesupload.html" class="btn btn-primary btn-rounded">
-              Notes Section
-            </a>
+          
+        
+          
+            
        </div>
 
 
